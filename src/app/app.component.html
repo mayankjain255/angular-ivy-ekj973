@@ -1,4 +1,37 @@
-<hello name="{{ name }}"></hello>
-<p>
-  Start editing to see some magic happen :)
-</p>
+<h2>Candidates</h2>
+<input type="checkbox" [checked]="isMaleSelected" (change)="updateMaleSelection()"> Male
+<input type="checkbox" [checked]="isFemaleSelected" (change)="updateFemaleSelection()"> Female
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Gender</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let val of candidates">
+      <ng-template [ngIf]="val">
+        <td *ngFor="let field of keys">
+          {{val[field]}}
+        </td>
+      </ng-template>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Add new Candidate</h2>
+<input type="text" placeholder="First Name" [value]="firstName" #firstNameId>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="text" placeholder="Last Name" [value]="lastName" #lastNameId>
+<br>
+<br>
+<input type="email" placeholder="Email" [value]="email" #emailId>
+<br>
+<br>
+<input type="radio" name="genderVal" #gender (click)="gender.value='Male'"> Male
+<input type="radio" name="genderVal" #gender (click)="gender.value='Female'"> Female
+<br>
+<br>
+<button type="submit" (click)="addCandidate(firstNameId.value, lastNameId.value, emailId.value, gender.value)">Add</button>
